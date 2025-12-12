@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMETRACK - Monitoring Kesehatan Mental Mahasiswa Rantau</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #20a39e;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --warning: #ff9f1c;
+            --danger: #e63946;
+            --success: #2a9d8f;
+        }
+        
+        body {
+            background-color: #f0f5ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 0;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-menu a.active {
+            color: var(--accent);
+        }
+        
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            background: linear-gradient(to bottom, rgba(74, 111, 165, 0.1), rgba(22, 96, 136, 0.05));
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #555;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(32, 163, 158, 0.3);
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(32, 163, 158, 0.4);
+        }
+        
+        /* Main Features Section */
+        .features {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary);
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .feature-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .feature-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .feature-button:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Mood Tracker Section */
+        .mood-tracker {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+        }
+        
+        .mood-tracker h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .mood-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .mood-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            padding: 15px;
+            border-radius: 10px;
+            width: 120px;
+        }
+        
+        .mood-option:hover {
+            transform: scale(1.05);
+            background-color: rgba(74, 111, 165, 0.05);
+        }
+        
+        .mood-option.active {
+            background-color: rgba(74, 111, 165, 0.1);
+            border: 2px solid var(--primary);
+        }
+        
+        .mood-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .mood-option:nth-child(1) .mood-icon { color: #e63946; }
+        .mood-option:nth-child(2) .mood-icon { color: #ff9f1c; }
+        .mood-option:nth-child(3) .mood-icon { color: #a7c957; }
+        .mood-option:nth-child(4) .mood-icon { color: #2a9d8f; }
+        .mood-option:nth-child(5) .mood-icon { color: #4a6fa5; }
+        
+        .mood-history {
+            margin-top: 30px;
+        }
+        
+        .mood-history h4 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .mood-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            gap: 10px;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .mood-bar {
+            flex: 1;
+            background-color: var(--primary);
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            min-height: 20px;
+        }
+        
+        .mood-bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        /* Chatbot Section */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .chatbot-button:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chatbot-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-header h3 {
+            font-size: 1.2rem;
+        }
+        
+        .close-chatbot {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 18px;
+            line-height: 1.4;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background-color: #f0f5ff;
+            color: #333;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--primary);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+        
+        .chatbot-input button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .chatbot-input button:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Educational Materials Section */
+        .education {
+            padding: 3rem 0;
+            background-color: rgba(74, 111, 165, 0.05);
+        }
+        
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .material-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .material-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .material-image {
+            height: 180px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .material-content {
+            padding: 20px;
+        }
+        
+        .material-content h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .material-content p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .material-tag {
+            display: inline-block;
+            background-color: rgba(32, 163, 158, 0.1);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Music Recommendations */
+        .music-section {
+            padding: 3rem 0;
+        }
+        
+        .music-player {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .music-player h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .song-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .song-item:hover {
+            background-color: rgba(74, 111, 165, 0.05);
+        }
+        
+        .song-item.active {
+            background-color: rgba(74, 111, 165, 0.1);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .song-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-right: 15px;
+        }
+        
+        .song-info {
+            flex: 1;
+        }
+        
+        .song-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+        
+        .song-artist {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .play-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .play-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        .audio-player {
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chatbot-window {
+                width: 300px;
+                height: 450px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .mood-options {
+                justify-content: center;
+            }
+            
+            .mood-option {
+                width: 100px;
+            }
+            
+            .chatbot-container {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .chatbot-window {
+                width: calc(100vw - 40px);
+                right: -20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .mood-option {
+                width: 80px;
+                padding: 10px;
+            }
+            
+            .mood-icon {
+                font-size: 2rem;
+            }
+            
+            .material-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-home logo-icon"></i>
+                    <h1>HOME<span>TRACK</span></h1>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#home" class="active">Beranda</a>
+                    <a href="#features">Fitur</a>
+                    <a href="#mood">Mood Tracker</a>
+                    <a href="#education">Edukasi</a>
+                    <a href="#music">Musik</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Selamat Datang di HOMETRACK</h2>
+            <p>Aplikasi Mobile Berbasis AI dan Teknologi Modern untuk Monitoring Kesehatan Mental Mahasiswa Rantau sebagai Upaya Preventif Homesick</p>
+            <a href="#features" class="cta-button">Jelajahi Fitur</a>
+        </div>
+    </section>
+
+    <!-- Main Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Fitur Utama HOMETRACK</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>Monitoring Kesehatan Mental</h3>
+                    <p>Pantau kondisi kesehatan mental Anda dengan teknologi AI yang dapat mendeteksi gejala homesick dan gangguan mental lainnya secara dini.</p>
+                    <a href="#mood" class="feature-button">Coba Sekarang</a>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-robot feature-icon"></i>
+                    <h3>Chatbot Konseling AI</h3>
+                    <p>Konsultasikan masalah kesehatan mental Anda dengan chatbot berbasis AI yang tersedia 24/7 untuk dukungan emosional dan saran.</p>
+                    <a href="#" class="feature-button feature-chatbot-btn">Buka Chatbot</a>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap feature-icon"></i>
+                    <h3>Edukasi Kesehatan Mental</h3>
+                    <p>Akses materi edukasi tentang kesehatan mental, tips mengatasi homesick, dan strategi adaptasi untuk mahasiswa rantau.</p>
+                    <a href="#education" class="feature-button">Pelajari</a>
+                </div>
+            </div>
+            
+            <!-- Mood Tracker -->
+            <div class="mood-tracker" id="mood">
+                <h3>Mood Tracker Harian</h3>
+                <p>Catat perasaan Anda hari ini untuk membantu memantau kondisi emosional Anda dari waktu ke waktu.</p>
+                
+                <div class="mood-options">
+                    <div class="mood-option" data-mood="sangat-buruk">
+                        <i class="fas fa-frown mood-icon"></i>
+                        <span>Sangat Buruk</span>
+                    </div>
+                    <div class="mood-option" data-mood="buruk">
+                        <i class="fas fa-meh mood-icon"></i>
+                        <span>Buruk</span>
+                    </div>
+                    <div class="mood-option" data-mood="netral">
+                        <i class="fas fa-meh-blank mood-icon"></i>
+                        <span>Netral</span>
+                    </div>
+                    <div class="mood-option" data-mood="baik">
+                        <i class="fas fa-smile mood-icon"></i>
+                        <span>Baik</span>
+                    </div>
+                    <div class="mood-option" data-mood="sangat-baik">
+                        <i class="fas fa-laugh mood-icon"></i>
+                        <span>Sangat Baik</span>
+                    </div>
+                </div>
+                
+                <button id="saveMoodBtn" class="cta-button" style="display: block; margin: 0 auto;">Simpan Mood Hari Ini</button>
+                
+                <div class="mood-history">
+                    <h4>Riwayat Mood Minggu Ini</h4>
+                    <div class="mood-chart" id="moodChart">
+                        <!-- Mood bars will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Materials -->
+    <section class="education" id="education">
+        <div class="container">
+            <h2 class="section-title">Materi Edukasi Kesehatan Mental</h2>
+            <div class="materials-grid">
+                <div class="material-card">
+                    <div class="material-image">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="material-content">
+                        <span class="material-tag">Homesick</span>
+                        <h4>Mengatasi Homesick bagi Mahasiswa Rantau</h4>
+                        <p>Pelajari strategi praktis untuk mengatasi rasa rindu rumah dan beradaptasi dengan lingkungan baru.</p>
+                        <a href="#" class="feature-button">Baca Selengkapnya</a>
+                    </div>
+                </div>
+                <div class="material-card">
+                    <div class="material-image">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="material-content">
+                        <span class="material-tag">Kesehatan Mental</span>
+                        <h4>Pentingnya Kesehatan Mental di Masa Perkuliahan</h4>
+                        <p>Memahami tanda-tanda gangguan mental dan cara menjaga kesehatan mental selama masa perkuliahan.</p>
+                        <a href="#" class="feature-button">Baca Selengkapnya</a>
+                    </div>
+                </div>
+                <div class="material-card">
+                    <div class="material-image">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="material-content">
+                        <span class="material-tag">Adaptasi</span>
+                        <h4>Tips Adaptasi di Lingkungan dan Budaya Baru</h4>
+                        <p>Panduan untuk mahasiswa rantau dalam beradaptasi dengan lingkungan, budaya, dan kehidupan kampus yang baru.</p>
+                        <a href="#" class="feature-button">Baca Selengkapnya</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Recommendations -->
+    <section class="music-section" id="music">
+        <div class="container">
+            <h2 class="section-title">Rekomendasi Musik untuk Kesehatan Mental</h2>
+            <div class="music-player">
+                <h3>Putar musik yang menenangkan</h3>
+                <div class="song-list">
+                    <div class="song-item active" data-audio="audio1">
+                        <i class="fas fa-music song-icon"></i>
+                        <div class="song-info">
+                            <div class="song-title">Relaxing Piano</div>
+                            <div class="song-artist">Musik untuk Relaksasi dan Meditasi</div>
+                        </div>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="song-item" data-audio="audio2">
+                        <i class="fas fa-music song-icon"></i>
+                        <div class="song-info">
+                            <div class="song-title">Calm Ocean Waves</div>
+                            <div class="song-artist">Suara Alam untuk Menenangkan Pikiran</div>
+                        </div>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="song-item" data-audio="audio3">
+                        <i class="fas fa-music song-icon"></i>
+                        <div class="song-info">
+                            <div class="song-title">Peaceful Morning</div>
+                            <div class="song-artist">Musik Inspiratif untuk Memulai Hari</div>
+                        </div>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                </div>
+                
+                <audio id="audioPlayer" class="audio-player" controls>
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    Browser Anda tidak mendukung elemen audio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <button class="chatbot-button" id="chatbotToggle">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>Chatbot Konseling HOMETRACK</h3>
+                <button class="close-chatbot" id="closeChatbot">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    Halo! Saya chatbot HOMETRACK. Saya di sini untuk membantu Anda dengan kesehatan mental. Ada yang bisa saya bantu hari ini?
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Ketik pesan Anda...">
+                <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tentang HOMETRACK</h3>
+                    <p>Aplikasi mobile berbasis AI untuk monitoring kesehatan mental mahasiswa rantau sebagai upaya preventif homesick.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Fitur Utama</h3>
+                    <a href="#mood">Mood Tracker</a>
+                    <a href="#education">Materi Edukasi</a>
+                    <a href="#music">Rekomendasi Musik</a>
+                    <a href="#" class="feature-chatbot-btn">Chatbot Konseling</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <a href="#"><i class="fas fa-envelope"></i> support@hometrack.id</a>
+                    <a href="#"><i class="fas fa-phone"></i> +62 812 3456 7890</a>
+                    <a href="#"><i class="fas fa-map-marker-alt"></i> Universitas Indonesia, Depok</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 HOMETRACK - Aplikasi Monitoring Kesehatan Mental Mahasiswa Rantau</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Mood Tracker Functionality
+        const moodOptions = document.querySelectorAll('.mood-option');
+        let selectedMood = null;
+
+        moodOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                moodOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                selectedMood = this.getAttribute('data-mood');
+            });
+        });
+
+        // Save Mood
+        document.getElementById('saveMoodBtn').addEventListener('click', function() {
+            if (!selectedMood) {
+                alert('Pilih mood Anda terlebih dahulu!');
+                return;
+            }
+            
+            // Simulasi penyimpanan mood
+            const moodLabels = {
+                'sangat-buruk': 'Sangat Buruk',
+                'buruk': 'Buruk',
+                'netral': 'Netral',
+                'baik': 'Baik',
+                'sangat-baik': 'Sangat Baik'
+            };
+            
+            alert(`Mood "${moodLabels[selectedMood]}" telah disimpan! Terima kasih telah mencatat perasaan Anda.`);
+            
+            // Update mood chart
+            updateMoodChart();
+        });
+
+        // Generate Mood Chart
+        function updateMoodChart() {
+            const moodChart = document.getElementById('moodChart');
+            const days = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+            const moodValues = [30, 60, 40, 80, 70, 90, 50]; // Simulasi data
+            
+            moodChart.innerHTML = '';
+            
+            days.forEach((day, index) => {
+                const bar = document.createElement('div');
+                bar.className = 'mood-bar';
+                bar.style.height = `${moodValues[index]}%`;
+                bar.style.backgroundColor = getMoodColor(moodValues[index]);
+                
+                const label = document.createElement('div');
+                label.className = 'mood-bar-label';
+                label.textContent = day;
+                
+                bar.appendChild(label);
+                moodChart.appendChild(bar);
+            });
+        }
+
+        function getMoodColor(value) {
+            if (value < 30) return '#e63946';
+            if (value < 50) return '#ff9f1c';
+            if (value < 70) return '#a7c957';
+            if (value < 90) return '#2a9d8f';
+            return '#4a6fa5';
+        }
+
+        // Initialize mood chart
+        updateMoodChart();
+
+        // Chatbot Functionality
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const closeChatbot = document.getElementById('closeChatbot');
+        const sendMessageBtn = document.getElementById('sendMessageBtn');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        
+        // Open chatbot when clicking chatbot buttons
+        document.querySelectorAll('.feature-chatbot-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                chatbotWindow.style.display = 'flex';
+            });
+        });
+
+        chatbotToggle.addEventListener('click', function() {
+            chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        closeChatbot.addEventListener('click', function() {
+            chatbotWindow.style.display = 'none';
+        });
+
+        // Chatbot responses
+        const botResponses = [
+            "Saya mengerti perasaan Anda. Banyak mahasiswa rantau mengalami hal serupa.",
+            "Coba luangkan waktu untuk berkomunikasi dengan keluarga atau teman dekat. Itu bisa membantu mengurangi rasa homesick.",
+            "Sesekali tidak ada sala nya kamu bercerita dan menelfon orang rumah, hal itu dapat mengobati perasaan mu yang sedang gundah.",
+            "Jangan ragu untuk mencari bantuan profesional jika perasaan homesick mengganggu aktivitas sehari-hari Anda.",
+            "Cobalah membuat rutinitas harian yang terstruktur. Ini dapat membantu Anda merasa lebih terkendali di lingkungan baru.",
+            "Ingatlah bahwa adaptasi membutuhkan waktu. Beri diri Anda kesempatan untuk menyesuaikan diri secara bertahap.",
+            "Sudahkah Anda mencoba teknik relaksasi seperti meditasi atau pernapasan dalam untuk mengurangi kecemasan?",
+            "Menjaga pola tidur yang teratur dan makan makanan bergizi dapat membantu meningkatkan kesehatan mental Anda."
+        ];
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = message;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function getBotResponse() {
+            const randomIndex = Math.floor(Math.random() * botResponses.length);
+            return botResponses[randomIndex];
+        }
+
+        sendMessageBtn.addEventListener('click', function() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatbotInput.value = '';
+                
+                // Simulate bot thinking
+                setTimeout(() => {
+                    addMessage(getBotResponse());
+                }, 1000);
+            }
+        });
+
+        chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessageBtn.click();
+            }
+        });
+
+        // Music Player Functionality
+        const songItems = document.querySelectorAll('.song-item');
+        const playButtons = document.querySelectorAll('.play-btn');
+        const audioPlayer = document.getElementById('audioPlayer');
+        
+        // Audio sources (using free sample audio from SoundHelix)
+        const audioSources = {
+            'audio1': 'audio/SHG.mp3',
+            'audio2': 'audio/lagu2.mp3',
+            'audio3': 'audio/lagu3.mp3'
+        };
+
+        songItems.forEach(item => {
+            item.addEventListener('click', function() {
+                songItems.forEach(song => song.classList.remove('active'));
+                this.classList.add('active');
+                
+                const audioId = this.getAttribute('data-audio');
+                if (audioSources[audioId]) {
+                    audioPlayer.src = audioSources[audioId];
+                    audioPlayer.play();
+                    
+                    // Update play button icon
+                    const playBtn = this.querySelector('.play-btn i');
+                    playBtn.className = 'fas fa-pause';
+                    
+                    // Reset other play buttons
+                    document.querySelectorAll('.song-item:not(.active) .play-btn i').forEach(icon => {
+                        icon.className = 'fas fa-play';
+                    });
+                }
+            });
+        });
+
+        playButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const songItem = this.closest('.song-item');
+                const isActive = songItem.classList.contains('active');
+                
+                if (!isActive) {
+                    songItems.forEach(item => item.classList.remove('active'));
+                    songItem.classList.add('active');
+                    
+                    const audioId = songItem.getAttribute('data-audio');
+                    if (audioSources[audioId]) {
+                        audioPlayer.src = audioSources[audioId];
+                    }
+                }
+                
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    this.querySelector('i').className = 'fas fa-pause';
+                } else {
+                    audioPlayer.pause();
+                    this.querySelector('i').className = 'fas fa-play';
+                }
+            });
+        });
+
+        // Update play button when audio is playing/paused
+        audioPlayer.addEventListener('play', function() {
+            document.querySelector('.song-item.active .play-btn i').className = 'fas fa-pause';
+        });
+
+        audioPlayer.addEventListener('pause', function() {
+            document.querySelector('.song-item.active .play-btn i').className = 'fas fa-play';
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-menu a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize with first song playing
+        audioPlayer.src = audioSources['audio1'];
+    </script>
+</body>
+</html>
